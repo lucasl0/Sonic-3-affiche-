@@ -20,11 +20,11 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('https://static.wikia.nocookie.net/sonic/images/1/16/SPrimeRing.png/revision/latest?cb=20240322202724');
+    background-image: url('https://static.wikia.nocookie.net/sonic/images/1/16/SPrimeRing.png');
     background-size: 80%;
     background-position: center;
     background-repeat: no-repeat;
-    opacity: 0.1;
+    opacity: 0.15;
     z-index: -1;
     animation: rotateRings 120s linear infinite;
 }

@@ -1,54 +1,109 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Particules
+    // Préchargement des images
+    const images = [
+        'img/Project_Sonic_Logo.svg.png',
+        'img/SPrimeRing.webp',
+        'img/chaos-emerald.webp'
+    ];
+    
+    images.forEach(src => {
+        new Image().src = src;
+    });
+
+    // Particules améliorées
     const particlesContainer = document.getElementById('particles');
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 60; i++) {
         const particle = document.createElement('div');
         particle.classList.add('particle');
-        particle.style.left = `${Math.random() * 100}%`;
-        particle.style.bottom = `-${Math.random() * 5 + 1}px`;
-        const size = Math.random() * 5 + 1;
+        
+        // Position aléatoire avec distribution plus uniforme
+        const left = Math.random() * 100;
+        const bottom = Math.random() * 20 - 5;
+        
+        particle.style.left = `${left}%`;
+        particle.style.bottom = `${bottom}px`;
+        
+        // Taille et durée variables
+        const size = Math.random() * 4 + 2;
+        const duration = Math.random() * 15 + 10;
+        const delay = Math.random() * 20;
+        
         particle.style.width = `${size}px`;
         particle.style.height = `${size}px`;
-        particle.style.animationDuration = `${Math.random() * 20 + 10}s`;
-        particle.style.animationDelay = `${Math.random() * 20}s`;
+        particle.style.animationDuration = `${duration}s`;
+        particle.style.animationDelay = `${delay}s`;
+        
+        // Opacité variable
+        particle.style.opacity = Math.random() * 0.6 + 0.4;
+        
         particlesContainer.appendChild(particle);
     }
     
-    // Lignes de vitesse
+    // Lignes de vitesse améliorées
     const speedEffect = document.getElementById('speedEffect');
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 25; i++) {
         const line = document.createElement('div');
         line.classList.add('speed-line');
-        line.style.setProperty('--angle', `${Math.random() * 60 - 30}deg`);
-        line.style.left = `${Math.random() * 100}%`;
-        line.style.top = `${Math.random() * 100}%`;
-        line.style.width = `${Math.random() * 100 + 50}px`;
-        line.style.animationDelay = `${Math.random() * 2}s`;
+        
+        // Position et angle aléatoires
+        const angle = Math.random() * 50 - 25;
+        const left = Math.random() * 100;
+        const top = Math.random() * 100;
+        
+        line.style.setProperty('--angle', `${angle}deg`);
+        line.style.left = `${left}%`;
+        line.style.top = `${top}%`;
+        
+        // Longueur et timing variables
+        const width = Math.random() * 80 + 60;
+        const delay = Math.random() * 3;
+        
+        line.style.width = `${width}px`;
+        line.style.animationDelay = `${delay}s`;
+        
+        // Opacité variable
+        line.style.opacity = Math.random() * 0.7 + 0.3;
+        
         speedEffect.appendChild(line);
     }
     
-    // Interaction au clic
+    // Chaos Emerald au clic
     document.body.addEventListener('click', function(event) {
-        const poster = document.querySelector('.poster');
-        poster.classList.toggle('freeze-animation');
+        const emerald = document.createElement('div');
+        emerald.className = 'chaos-emerald';
         
-        // Ajoute un effet spécial au clic
-        const clickEffect = document.createElement('div');
-        clickEffect.style.position = 'absolute';
-        clickEffect.style.width = '100px';
-        clickEffect.style.height = '100px';
-        clickEffect.style.background = 'radial-gradient(circle, rgba(255,204,0,0.8) 0%, rgba(255,204,0,0) 70%)';
-        clickEffect.style.borderRadius = '50%';
-        clickEffect.style.pointerEvents = 'none';
-        clickEffect.style.transform = 'translate(-50%, -50%)';
-        clickEffect.style.left = `${event.clientX}px`;
-        clickEffect.style.top = `${event.clientY}px`;
-        clickEffect.style.animation = 'expand 1s forwards';
+        // Position au point de clic
+        emerald.style.left = `${event.clientX - 60}px`;
+        emerald.style.top = `${event.clientY - 60}px`;
         
-        document.body.appendChild(clickEffect);
+        document.body.appendChild(emerald);
         
+        // Active l'animation après un léger délai
         setTimeout(() => {
-            clickEffect.remove();
-        }, 1000);
+            emerald.classList.add('active');
+            
+            // Supprime après l'animation
+            setTimeout(() => {
+                emerald.remove();
+            }, 600);
+        }, 10);
+    });
+    
+    // Effet hover sur le poster
+    const poster = document.querySelector('.poster');
+    poster.addEventListener('mouseenter', () => {
+        document.querySelector('.sonic-title').style.textShadow = 
+            '0 0 20px var(--sonic-blue), 0 0 40px var(--sonic-blue), 0 0 60px #0033ff';
+        document.querySelector('.number').style.textShadow = '0 0 20px #ff9900';
+        document.querySelector('.subtitle').style.letterSpacing = '5px';
+        document.querySelector('.date').style.textShadow = '0 0 15px #ffaa00';
+    });
+    
+    poster.addEventListener('mouseleave', () => {
+        document.querySelector('.sonic-title').style.textShadow = 
+            '0 0 15px var(--sonic-blue), 0 0 30px var(--sonic-blue), 0 0 45px #0033ff';
+        document.querySelector('.number').style.textShadow = '0 0 15px #ff9900';
+        document.querySelector('.subtitle').style.letterSpacing = '4px';
+        document.querySelector('.date').style.textShadow = '0 0 10px #ff9900';
     });
 });

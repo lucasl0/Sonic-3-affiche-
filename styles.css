@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@700&display=swap');
 
+:root {
+    --sonic-blue: #2b95d6;
+    --gold-yellow: #ffcc00;
+    --emerald-green: #00ff9d;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -16,41 +22,49 @@ body {
 
 .background-rings {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('https://static.wikia.nocookie.net/sonic/images/1/16/SPrimeRing.png');
-    background-size: 80%;
-    background-position: center;
+    top: 50%;
+    left: 50%;
+    width: 150vmax;
+    height: 150vmax;
+    background-image: url('img/SPrimeRing.webp');
+    background-size: contain;
     background-repeat: no-repeat;
-    opacity: 0.15;
+    background-position: center;
+    opacity: 0.2;
     z-index: -1;
-    animation: rotateRings 120s linear infinite;
+    transform: translate(-50%, -50%) rotate(0deg);
+    animation: rotateRings 180s linear infinite;
+    pointer-events: none;
+    filter: hue-rotate(10deg);
 }
 
 @keyframes rotateRings {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
 .poster {
-    width: 70vmin; /* Réduit la taille */
-    height: 105vmin; /* Proportion 3:2 */
-    background: linear-gradient(160deg, rgba(0, 91, 170, 0.85) 0%, rgba(0, 51, 102, 0.85) 50%, rgba(0, 0, 51, 0.85) 100%);
-    border-radius: 8px;
+    width: 70vmin;
+    height: 105vmin;
+    background: linear-gradient(160deg, rgba(0, 91, 170, 0.9) 0%, rgba(0, 51, 102, 0.9) 50%, rgba(0, 0, 51, 0.9) 100%);
+    border-radius: 12px;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 0 30px rgba(0, 100, 255, 0.6);
+    box-shadow: 0 0 40px rgba(0, 100, 255, 0.7);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
     padding: 4vmin;
     box-sizing: border-box;
-    transition: transform 0.3s;
-    backdrop-filter: blur(3px);
-    border: 1px solid rgba(0, 150, 255, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    backdrop-filter: blur(4px);
+    border: 2px solid rgba(0, 150, 255, 0.3);
+}
+
+.poster:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 60px rgba(0, 150, 255, 0.9);
 }
 
 .sonic-image {
@@ -60,7 +74,12 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 2;
-    filter: drop-shadow(0 0 15px rgba(0, 200, 255, 0.7));
+    filter: drop-shadow(0 0 20px rgba(0, 200, 255, 0.8));
+    transition: filter 0.3s ease;
+}
+
+.poster:hover .sonic-image {
+    filter: drop-shadow(0 0 30px rgba(0, 230, 255, 1));
 }
 
 .title-container {
@@ -69,58 +88,65 @@ body {
     align-items: center;
     z-index: 3;
     margin-top: 3vmin;
+    transition: transform 0.3s ease;
 }
 
 .sonic-title {
     font-size: 10vmin;
     font-weight: 900;
     color: #fff;
-    text-shadow: 0 0 15px #00a2ff, 
-                 0 0 30px #0066ff,
+    text-shadow: 0 0 15px var(--sonic-blue), 
+                 0 0 30px var(--sonic-blue),
                  0 0 45px #0033ff;
-    letter-spacing: 1.5px;
+    letter-spacing: 2px;
     font-family: 'Oswald', sans-serif;
     text-transform: uppercase;
     line-height: 0.9;
+    transition: text-shadow 0.3s ease;
 }
 
 .number {
     font-size: 18vmin;
-    color: #ffcc00;
+    color: var(--gold-yellow);
     text-shadow: 0 0 15px #ff9900;
     margin-top: -3vmin;
     font-weight: 900;
+    transition: all 0.3s ease;
 }
 
 .subtitle {
     font-size: 4.5vmin;
     color: #fff;
-    text-shadow: 0 0 8px #00a2ff;
-    letter-spacing: 3px;
+    text-shadow: 0 0 8px var(--sonic-blue);
+    letter-spacing: 4px;
     margin-top: 1vmin;
     z-index: 3;
     text-transform: uppercase;
+    transition: letter-spacing 0.3s ease;
 }
 
 .exclusive {
-    font-size: 2.5vmin;
+    font-size: 2.8vmin;
     color: #fff;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
     margin-bottom: 2vmin;
     z-index: 3;
     text-transform: uppercase;
+    text-shadow: 0 0 5px var(--sonic-blue);
 }
 
 .date {
     font-size: 5vmin;
-    color: #ffcc00;
-    text-shadow: 0 0 8px #ff9900;
-    letter-spacing: 2px;
+    color: var(--gold-yellow);
+    text-shadow: 0 0 10px #ff9900;
+    letter-spacing: 3px;
     margin-bottom: 3vmin;
     font-weight: bold;
     text-transform: uppercase;
+    transition: all 0.3s ease;
 }
 
+/* Effets de vitesse */
 .speed-effect {
     position: absolute;
     width: 100%;
@@ -131,11 +157,11 @@ body {
 
 .speed-line {
     position: absolute;
-    background: linear-gradient(90deg, rgba(0,200,255,0) 0%, rgba(0,200,255,0.7) 50%, rgba(0,200,255,0) 100%);
+    background: linear-gradient(90deg, rgba(0,200,255,0) 0%, rgba(0,230,255,0.8) 50%, rgba(0,200,255,0) 100%);
     height: 2px;
     transform-origin: left center;
     animation: speedEffect 1.5s infinite linear;
-    filter: blur(0.5px);
+    filter: blur(0.8px);
 }
 
 @keyframes speedEffect {
@@ -144,6 +170,7 @@ body {
     100% { transform: rotate(var(--angle)) translateX(1000px); opacity: 0; }
 }
 
+/* Particules */
 .particles {
     position: absolute;
     width: 100%;
@@ -153,7 +180,7 @@ body {
 
 .particle {
     position: absolute;
-    background-color: rgba(0, 200, 255, 0.4);
+    background-color: rgba(0, 230, 255, 0.5);
     border-radius: 50%;
     animation: float linear infinite;
 }
@@ -161,4 +188,26 @@ body {
 @keyframes float {
     0% { transform: translateY(0) rotate(0deg); }
     100% { transform: translateY(-1000px) rotate(720deg); }
+}
+
+/* Chaos Emerald */
+.chaos-emerald {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    background-image: url('img/chaos-emerald.webp');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    pointer-events: none;
+    z-index: 10;
+    opacity: 0;
+    transform: scale(0.3) rotate(0deg);
+    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    filter: drop-shadow(0 0 15px var(--emerald-green));
+}
+
+.chaos-emerald.active {
+    opacity: 0.9;
+    transform: scale(1.5) rotate(720deg);
 }
